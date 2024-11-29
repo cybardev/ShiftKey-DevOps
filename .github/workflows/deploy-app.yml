@@ -1,0 +1,100 @@
+# Define the Workflow Name
+name: Calculator App CI/CD Pipeline
+
+# Define triggers for the workflow
+on:
+  push:
+    branches: [master]
+    paths: ["**/.py", "**/.js"]
+  pull_request:
+    branches: [master]
+    paths: ["**/.py", "**/.js"]
+
+  # Allows running this workflow from GitHub Actions tab
+  workflow_dispatch:
+
+permissions:
+  packages: write
+  contents: read
+
+jobs:
+  # Define a job for building and testing the frontend
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Project/frontend
+    steps:
+      # Checkout code
+      - uses: actions/checkout@v4
+      # Setup Node.js
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 23
+      # Install dependencies
+      - run: npm install
+      # Run tests
+      - run: npm run test
+      # Build the React app
+      - run: npm run build
+
+  # Define a job for building and testing the backend
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Project/backend
+    steps:
+      # Checkout code
+      - uses: actions/checkout@v4
+      # Setup Python
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip" # caching pip dependencies
+      # Install dependencies
+      - run: pip install -r requirements.txt
+      # TODO: Run tests
+
+  # Define a job for building and pushing Docker images
+  docker:
+    # Run this job only when 'frontend' & 'backend' stages are sucessfully completed
+    needs: [frontend, backend]
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout code
+      - uses: actions/checkout@v4
+      # Setup Docker
+      - name: Log in to GitHub Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      # Build frontend Docker image and push to GitHub Container Registry (if on main branch)
+      - name: Build and push Docker image (frontend)
+        if: github.ref == 'refs/heads/master'
+        uses: docker/build-push-action@v5
+        with:
+          context: ./Project/frontend
+          tags: cybardev/CyCalc-frontend
+          push: true
+      # Build backend Docker image and push to GitHub Container Registry (if on main branch)
+      - name: Build and push Docker image (backend)
+        if: github.ref == 'refs/heads/master'
+        uses: docker/build-push-action@v5
+        with:
+          context: ./Project/backend
+          tags: cybardev/CyCalc-backend
+          push: true
+
+  # Define a deployment job (if applicable)
+#   deploy:
+#     needs: docker
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Deploy to Render
+#         if: github.ref == 'refs/heads/master'
+#         env:
+#           deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+#         run: curl "$deploy_url"
