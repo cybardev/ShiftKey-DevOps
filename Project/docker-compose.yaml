@@ -1,41 +1,45 @@
-# This is just a template placeholder docker-compose file. Use relevant sections which are applicable, 
+# This is just a template placeholder docker-compose file. Use relevant sections which are applicable,
 # and feel free to customize.
 version: '3'
 
 services:
   frontend:
     # Specify the build context for the frontend
-    build:
+    build: ./frontend
     # Map the host port to the container port
     ports:
+      - 3000:3000
     # Specify dependencies (if applicable)
     depends_on:
+      - backend
 
     # Additional options (uncomment and configure as needed):
-    
+
     # Specify environment variables if needed
-    # environment:
-    
+    environment:
+      REACT_APP_API_PORT: 4000
+
     # Specify volume for live code reloading (optional)
     # volumes:
-    
+
     # Specify the command to run the development server (if different from Dockerfile)
     # command:
 
   backend:
     # Specify the build context for the backend
-    build:
+    build: ./backend
     # Map the host port to the container port
     ports:
-    
+      - "4000:5000"
+
     # Additional options (uncomment and configure as needed):
-    
+
     # Specify environment variables if needed
     # environment:
-    
+
     # Specify volume for live code reloading (optional)
     # volumes:
-    
+
     # Specify the command to run the development server (if different from Dockerfile)
     # command:
 
