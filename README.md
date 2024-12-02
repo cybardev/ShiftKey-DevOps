@@ -1,5 +1,8 @@
 # DevOps Foundations Certification Course
 
+> [!NOTE]
+> The app in the [Project](Project/) directory has continued development at this repository: [cybardev/CyCalc](https://github.com/cybardev/CyCalc)
+
 Welcome to the **DevOps Foundations Certification** course! This comprehensive program is designed to provide you with a solid understanding of DevOps principles and practices. This repository contains all materials organized by weekly sessions, each consisting its own set of additional resources, guides, helpful links, instructions, and hands-on practice exercises to guide your learning experience.
 
 The course is designed and taught by [**Zainuddin Saiyed**](https://linkedin.com/in/zain-saiyed).
