@@ -25,3 +25,5 @@ services:
         value: 443
       - key: REACT_APP_API_HOST
         sync: false
+    domains:
+      - calc.cybar.dev
