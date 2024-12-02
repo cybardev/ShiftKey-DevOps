@@ -54,7 +54,8 @@ jobs:
           cache: "pip" # caching pip dependencies
       # Install dependencies
       - run: pip install -r requirements.txt
-      # TODO: Run tests
+      # Run tests
+      - run: python -m unittest -v test_app.py
 
   # Define a job for building and pushing Docker images
   docker:

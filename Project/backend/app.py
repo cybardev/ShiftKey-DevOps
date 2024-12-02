@@ -139,5 +139,5 @@ def logarithm():
     return jsonify({'result': result})
 
 if __name__ == '__main__':
-    # Run the Flask application on port 
+    # Run the Flask application on port
     app.run(host='0.0.0.0', port=5000)
