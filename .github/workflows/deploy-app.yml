@@ -16,8 +16,6 @@ on:
 permissions:
   packages: write
   contents: read
-  attestations: write
-  id-token: write
 
 jobs:
   # Define a job for building and testing the frontend
@@ -80,7 +78,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./Project/frontend
-          tags: cybardev/cycalc-frontend:latest
+          tags: ghcr.io/cybardev/cycalc-frontend:latest
           push: true
       # Build backend Docker image and push to GitHub Container Registry (if on main branch)
       - name: Build and push Docker image (backend)
@@ -88,7 +86,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./Project/backend
-          tags: cybardev/cycalc-backend:latest
+          tags: ghcr.io/cybardev/cycalc-backend:latest
           push: true
 
   # Define a deployment job (if applicable)
