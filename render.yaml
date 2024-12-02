@@ -21,9 +21,7 @@ services:
     envVars:
       - key: REACT_APP_API_SSL
         value: true
-        sync: false
       - key: REACT_APP_API_PORT
         value: 443
-        sync: false
       - key: REACT_APP_API_HOST
         sync: false
