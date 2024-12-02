@@ -20,6 +20,7 @@ RUN npm run build
 EXPOSE 3000
 
 # Define environment variable
+ENV REACT_APP_API_SSL false
 ENV REACT_APP_API_HOST localhost
 ENV REACT_APP_API_PORT 5000
 

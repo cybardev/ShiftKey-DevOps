@@ -109,9 +109,9 @@ function App() {
     try {
       // Request backend API with operands and operation type to get results
       const api_response = await axios.post(
-        `http://${process.env.REACT_APP_API_HOST || "localhost"}:${
-          process.env.REACT_APP_API_PORT || 5000
-        }/api/${current_operation}`,
+        `http${process.env.REACT_APP_API_SSL === "true" ? "s" : ""}://${
+          process.env.REACT_APP_API_HOST || "localhost"
+        }:${process.env.REACT_APP_API_PORT || 5000}/api/${current_operation}`,
         {
           number_1: first_operand,
           number_2: parseFloat(calculator_display),
@@ -165,9 +165,9 @@ function App() {
 
       // Request backend API with operand and operation type to get results
       const api_response = await axios.post(
-        `http://${process.env.REACT_APP_API_HOST || "localhost"}:${
-          process.env.REACT_APP_API_PORT || 5000
-        }/api/${api_endpoint}`,
+        `http${process.env.REACT_APP_API_SSL === "true" ? "s" : ""}://${
+          process.env.REACT_APP_API_HOST || "localhost"
+        }:${process.env.REACT_APP_API_PORT || 5000}/api/${api_endpoint}`,
         request_payload
       );
       // Format the returned result from API in case if large number
