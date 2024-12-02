@@ -1,7 +1,5 @@
 # This is just a template placeholder docker-compose file. Use relevant sections which are applicable,
 # and feel free to customize.
-version: '3'
-
 services:
   frontend:
     # Specify the build context for the frontend
@@ -17,6 +15,7 @@ services:
 
     # Specify environment variables if needed
     environment:
+      REACT_APP_API_HOST: localhost
       REACT_APP_API_PORT: 4000
 
     # Specify volume for live code reloading (optional)
